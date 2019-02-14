@@ -24,8 +24,8 @@ n1=startPulses(1);  % Begin melody at starting place of 1st note
 for kk = 1:length(noteNumbers)
 
     keynum = noteNumbers(kk);
-    dur = time_dur_per_note(kk);
-    note = key2note(x,keynum,dur);  % x=1 before for loop.
+    dur    = time_dur_per_note(kk);
+    note   = key2note(x,keynum,dur);  % x=1 before for loop.
     
     E_length = length(note); % Envelope length must be same as note length
     
@@ -33,13 +33,13 @@ for kk = 1:length(noteNumbers)
     downramp = round( 0.2 * E_length ); % Percentage of note for downramp
     hold     = E_length-upramp-downramp; % Percentage of note to hold max
      
-    E_upramp = linspace(0,1,upramp);   % ramp up from 0 to 1
-    E_hold   = ones(1,hold);           % hold note at max value
-    E_deramp = linspace(1,0,downramp); % down ramp from 1 to 0
+    E_upramp   = linspace(0,1,upramp);   % ramp up from 0 to 1
+    E_hold     = ones(1,hold);           % hold note at max value
+    E_downramp = linspace(1,0,downramp); % down ramp from 1 to 0
      
     % Create an envelope, E, that linearly 
     % ramps up from 0 to 1, holds, then ramps down to 0 at set intervals
-    E = [ E_upramp E_hold E_deramp ];
+    E = [ E_upramp E_hold E_downramp ];
     % E: truncate extraneous values due to rounding
     E = E(1:length(note));
     % Multiply note by E envelope
